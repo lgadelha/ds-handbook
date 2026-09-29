@@ -46,17 +46,17 @@ resources:
 
 ## Context
 
-Computational workflows are simultaneously **software** — something executable — and **data**: a specification of a process. Dependencies deprecate and containers go offline, making a workflow that ran yesterday impossible to reproduce today. Even when it still runs, you need detailed provenance to know whether an output came from the same code, the same version, and the same parameters.
+Computational workflows are simultaneously **software**, something executable, and **data**: a specification of a process. Therefore, curating and managing them are increasingly part of the tasks of data stewards. Dependencies deprecate and containers go offline, making a workflow that ran yesterday impossible to reproduce today. Even when it still runs, you need detailed provenance to know whether an output came from the same code, the same version, and the same parameters.
 
-You can apply the FAIR principles to computational workflows: registering the workflow makes it findable, using standard formats for its specification and execution records makes it interoperable, and capturing provenance at run time makes it reusable. In 2025 the FAIR Computational Workflows Working Group (part of the Workflows Community Initiative) published 20 guidelines tailoring FAIR to workflows (see resources below). This page translates those guidelines into practical actions you can take with existing tools.
+You can apply the FAIR principles to computational workflows: registering the workflow makes it findable, using standard formats for its specification and execution records makes it interoperable, and capturing provenance at run time makes it reusable. In 2025, the FAIR Computational Workflows Working Group (part of the Workflows Community Initiative) published 20 guidelines adapting FAIR to computational workflows (see resources below). This page translates those guidelines into practical actions you can take with existing tools.
 
-{% include callout.html type="note" content="Tool suggestions use Nextflow and nf-core conventions as examples — they automate several of these steps. The underlying principles apply equally to CWL, Snakemake, Galaxy, and other languages." %}
+{% include callout.html type="note" content="Tool suggestions use Nextflow and nf-core conventions as examples, they automate many of these steps. The underlying principles apply equally to CWL, Snakemake, Galaxy, and other languages." %}
 
 ## Guidance
 
 1. **Register your workflow in a searchable registry**
 
-   Deposit your workflow in WorkflowHub or Dockstore (see resources). Both mint persistent identifiers (DOIs) for registered workflows, store metadata, and track versions. A GitHub repository alone is not indexed in a searchable, citable way — registration is what makes your workflow findable to others.
+   Deposit the workflow in WorkflowHub or Dockstore (see resources). Both mint persistent identifiers (DOIs) for registered workflows, store metadata, and track versions. A GitHub repository alone is not indexed in a searchable, citable way, registration is what makes your workflow findable to others.
 
 2. **Version-tag each release and associate a DOI**
 
@@ -68,18 +68,18 @@ You can apply the FAIR principles to computational workflows: registering the wo
 
 4. **Licence the workflow and its components**
 
-   Choose a licence for the workflow as a whole, then verify it is compatible with the licences of all its components — tools, sub-workflows, and containers each carry their own. Incompatible licences (GPL, MIT, Apache) can restrict how the combined output is shared, and this is easy to overlook when assembling modular pipelines.
+   Choose a licence for the workflow as a whole, then verify it is compatible with the licences of all its components, tools, sub-workflows, and containers each carry their own. Incompatible licences can restrict how the combined output is shared, and this is easy to overlook when assembling modular pipelines.
 
 5. **Capture provenance at run time**
 
-   Configure your workflow engine to record which input files and parameters were used, which tool versions ran, and what outputs were produced. This is the evidence you need to reproduce any specific execution — not the workflow alone, but the record of a run on specific inputs. For Nextflow, enable the nf-prov plugin, which records provenance as a Workflow Run RO-Crate or a BioCompute Object.
+   Configure your workflow engine to record which input files and parameters were used, which tool versions ran, and what outputs were produced. This is the evidence you need to reproduce any specific execution,  not the workflow alone, but the record of a run on specific inputs. For Nextflow, enable the `nf-prov`  plugin, which records provenance as a Workflow Run RO-Crate or a BioCompute Object, or the data lineage option in in Nextflow configuration.
 
-{% include callout.html type="tip" content="Provenance capture is almost never enabled by default — it is an opt-in step. Build it into your workflow template so new pipelines inherit it from the start." %}
+{% include callout.html type="tip" content="Provenance capture is almost never enabled by default, it is an opt-in step. Build it into your workflow template so new pipelines inherit it from the start." %}
 
 6. **Package the workflow with RO-Crate for archival**
 
-   Bundle your workflow, its metadata, and (where feasible) an example run record into an RO-Crate — a lightweight packaging standard that keeps the workflow readable and citable even when the execution platform is no longer available (see resources). For Nextflow, `nf-core pipelines rocrate` packages the workflow with Bioschemas-compatible metadata that you can then upload to WorkflowHub for registration.
+   Bundle your workflow, its metadata, and (where feasible) an example run record into an RO-Crate, a  packaging standard that keeps the workflow readable and citable even when the execution platform is no longer available (see resources). For Nextflow, `nf-core pipelines rocrate` packages the workflow with Bioschemas-compatible metadata that you can then upload to WorkflowHub for registration.
 
 7. **Add automated testing and domain benchmarking**
 
-   Include at least one automated test that verifies the workflow produces correct output from a known input — this documents and protects correctness as the workflow evolves. Optionally, add domain-specific benchmarking to provide evidence of scientific output quality. For Nextflow, nf-test covers testing and nf-core/variantbenchmarking covers benchmarking in the variant calling domain.
+   Include at least one automated test that verifies the workflow produces correct output from a known input, this documents and protects correctness as the workflow evolves. Optionally, add domain-specific benchmarking to provide evidence of scientific output quality. For example, in Nextflow, `nf-test` covers testing and `nf-core/variantbenchmarking` covers benchmarking in the variant calling domain.

@@ -30,6 +30,10 @@ resources:
     url: https://github.com/nextflow-io/nf-prov
     description: Nextflow plugin that captures run-level provenance and emits a Workflow Run RO-Crate or BioCompute Object.
     category: external_resource
+  - name: Getting started with data lineage
+    url: https://docs.seqera.io/nextflow/tutorials/data-lineage
+    description: Data lineage in Nextflow provides tracking of workflow runs, task executions, and output files.
+    category: external_resource
   - name: Bioschemas ComputationalWorkflow profile
     url: https://bioschemas.org/profiles/ComputationalWorkflow/1.0-RELEASE
     description: Structured metadata schema for describing computational workflows in a machine-readable way.
@@ -46,7 +50,7 @@ resources:
 
 ## Context
 
-Computational workflows are simultaneously **software**, something executable, and **data**: a specification of a process. Therefore, curating and managing them are increasingly part of the tasks of data stewards. Dependencies deprecate and containers go offline, making a workflow that ran yesterday impossible to reproduce today. Even when it still runs, you need detailed provenance to know whether an output came from the same code, the same version, and the same parameters.
+Computational workflows are simultaneously **software**, something executable, and **data**: a specification of a process. Therefore, curating and managing them are increasingly part of the tasks of data stewards. Dependencies deprecate and containers become unavailable, making more difficuly to reproduce a workflow with time. Even when it still runs, one needs detailed provenance to know whether an output came from the same code, the same version, and the same parameters.
 
 You can apply the FAIR principles to computational workflows: registering the workflow makes it findable, using standard formats for its specification and execution records makes it interoperable, and capturing provenance at run time makes it reusable. In 2025, the FAIR Computational Workflows Working Group (part of the Workflows Community Initiative) published 20 guidelines adapting FAIR to computational workflows (see resources below). This page translates those guidelines into practical actions you can take with existing tools.
 
@@ -74,7 +78,7 @@ You can apply the FAIR principles to computational workflows: registering the wo
 
    Configure your workflow engine to record which input files and parameters were used, which tool versions ran, and what outputs were produced. This is the evidence you need to reproduce any specific execution,  not the workflow alone, but the record of a run on specific inputs. For Nextflow, enable the `nf-prov`  plugin, which records provenance as a Workflow Run RO-Crate or a BioCompute Object, or the data lineage option in in Nextflow configuration.
 
-{% include callout.html type="tip" content="Provenance capture is almost never enabled by default, it is an opt-in step. Build it into your workflow template so new pipelines inherit it from the start." %}
+{% include callout.html type="tip" content="nf-prov and Nextflow lineage capture are not enabled by default, they are opt-in configurations. Build them into your workflow template so new pipelines inherit them from the start." %}
 
 6. **Package the workflow with RO-Crate for archival**
 
